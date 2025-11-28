@@ -16,9 +16,8 @@ app.use(express.json());
 // This allows both your local computer and your live website to talk to the server
 app.use(cors({
   origin: [
-     "http://localhost:3000",                      // ALLOWS YOUR LOCALHOST
-    "https://mentor-connect-hazel.vercel.app",    // ALLOWS YOUR VERCEL APP
-    "https://mentor-connect-umber.vercel.app" 
+   "http://localhost:3000",                      // Keep this for local
+  "https://mentor-connect-hazel.vercel.app" 
   ],
   credentials: true
 }));
