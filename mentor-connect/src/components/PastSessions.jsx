@@ -1,10 +1,8 @@
-// src/components/PastSessions.jsx
 import React from 'react';
-import { FaClock, FaCheck, FaTimes, FaStickyNote, FaUserTie } from 'react-icons/fa';
-import '../styles/ClassyTheme.css'; // Importing the shared Classy Theme
+import { FaClock, FaCheck, FaTimes, FaStickyNote } from 'react-icons/fa';
+import '../styles/ClassyTheme.css';
 
 const PastSessions = () => {
-  // Mock Data for Mentee View (Showing Mentors instead of Students)
   const sessions = [
     { id: 101, mentor: "Dr. Anjali Verma", date: "Oct 22, 2023", time: "10:00 AM", topic: "Research Methodology", duration: "45 mins", status: "Completed" },
     { id: 102, mentor: "Prof. Vikram Singh", date: "Oct 29, 2023", time: "02:00 PM", topic: "Career Path in AI", duration: "30 mins", status: "Completed" },
@@ -35,40 +33,29 @@ const PastSessions = () => {
             <tbody>
               {sessions.map((session, index) => (
                 <tr key={session.id} style={{background: index % 2 === 0 ? 'rgba(255,255,255,0.4)' : 'transparent'}}>
-                  
-                  {/* Mentor Column */}
                   <td className="ps-4 py-3 align-middle border-bottom border-light">
                     <div className="d-flex align-items-center">
                         <div className="rounded-circle bg-white shadow-sm d-flex justify-content-center align-items-center me-3" 
                              style={{width: '40px', height: '40px', color: '#4ca1af', fontWeight: 'bold', border: '1px solid #eee'}}>
-                             {/* Uses Mentor Initial or Icon */}
                             {session.mentor.charAt(0)}
                         </div>
                         <span className="fw-bold text-dark">{session.mentor}</span>
                     </div>
                   </td>
-
-                  {/* Date Column */}
                   <td className="align-middle border-bottom border-light">
                     <div className="d-flex flex-column">
                         <span className="fw-medium text-dark">{session.date}</span>
                         <small className="text-muted">{session.time}</small>
                     </div>
                   </td>
-
-                  {/* Topic Column */}
                   <td className="align-middle border-bottom border-light">
                     <span className="px-3 py-1 rounded-pill bg-white border small fw-medium text-secondary shadow-sm">
                         {session.topic}
                     </span>
                   </td>
-
-                  {/* Duration Column */}
                   <td className="align-middle border-bottom border-light text-muted">
                     <FaClock className="me-2" style={{opacity: 0.5}}/> {session.duration}
                   </td>
-
-                  {/* Status Column */}
                   <td className="align-middle border-bottom border-light text-center">
                     {session.status === 'Completed' ? (
                         <div className="d-inline-flex align-items-center text-success small fw-bold bg-success bg-opacity-10 px-3 py-1 rounded-pill">
@@ -80,8 +67,6 @@ const PastSessions = () => {
                         </div>
                     )}
                   </td>
-
-                  {/* Notes Column */}
                   <td className="align-middle border-bottom border-light text-end pe-4">
                     <button className="btn btn-sm btn-light border bg-white shadow-sm text-muted rounded-circle p-2">
                         <FaStickyNote />
