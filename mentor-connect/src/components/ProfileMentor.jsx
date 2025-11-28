@@ -1,33 +1,40 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import axios from 'axios';
-import '../styles/ClassyTheme.css'; // Import the CSS
+import '../styles/ClassyTheme.css';
 
 const ProfileMentor = () => {
   const [mentor, setMentor] = useState(null);
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  const API_URL = process.env.REACT_APP_API_URL;
+  
   const [formData, setFormData] = useState({
     fullName: '', email: '', faculty: '', experience: '',
     areaInterested: '', phoneNumber: '', linkedin: '', calendlyUrl: '',
   });
 
   const navigate = useNavigate();
-  
+  // 1. GET THE LIVE URL
+  const API_URL = process.env.REACT_APP_API_URL;
+
   useEffect(() => {
     const fetchMentorData = async () => {
       const token = localStorage.getItem('token');
       if (!token) { navigate('/mentor/login'); return; }
 
       try {
+        // 2. USE THE LIVE URL
         const response = await fetch(`${API_URL}/api/mentor/profile`, {
-          headers: { Authorization: `Bearer ${token}` },
+          method: 'GET',
+          headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+          },
         });
 
-        if (response.status === 200) {
-          const data = response.data;
+        const data = await response.json();
+
+        if (response.ok) {
           setMentor(data);
           setFormData({
             fullName: data.fullName || '', email: data.email || '',
@@ -35,38 +42,52 @@ const ProfileMentor = () => {
             areaInterested: data.areaInterested || '', phoneNumber: data.phoneNumber || '',
             linkedin: data.linkedin || '', calendlyUrl: data.calendlyUrl || '',
           });
+        } else if (response.status === 401) {
+            localStorage.removeItem('token'); 
+            navigate('/mentor/login');
+        } else {
+            setError(data.message || 'Failed to load profile.');
         }
       } catch (err) {
-        if (err.response && err.response.status === 401) {
-            localStorage.removeItem('token'); navigate('/mentor/login');
-        } else {
-            setError('Failed to load profile.');
-        }
+        console.error("Profile Fetch Error:", err);
+        setError('Failed to connect to server.');
       } finally { setLoading(false); }
     };
     fetchMentorData();
-  }, [navigate]);
+  }, [navigate, API_URL]);
 
   const handleChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
   const handleSave = async () => {
     try {
-      const payload = { ...formData };
-      const response = await axios.put(`${API_URL}/api/mentor/profile`, payload, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      const token = localStorage.getItem('token');
+      // 3. USE THE LIVE URL FOR UPDATES
+      const response = await fetch(`${API_URL}/api/mentor/profile`, {
+        method: 'PUT',
+        headers: { 
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json' 
+        },
+        body: JSON.stringify(formData)
       });
-      if (response.status === 200) {
-        setMentor({ ...mentor, ...payload });
+
+      if (response.ok) {
+        setMentor({ ...mentor, ...formData });
         setIsEditing(false);
+      } else {
+        alert("Failed to update profile.");
       }
-    } catch (err) { alert("Failed to update profile."); }
+    } catch (err) { alert("An error occurred."); }
   };
 
   const handleDelete = async () => {
     if(!window.confirm("Delete account? This is permanent.")) return;
     try {
-      await axios.delete(`${API_URL}/api/mentor/profile`, {
-        headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
+      const token = localStorage.getItem('token');
+      // 4. USE THE LIVE URL FOR DELETE
+      await fetch(`${API_URL}/api/mentor/profile`, {
+        method: 'DELETE',
+        headers: { 'Authorization': `Bearer ${token}` },
       });
       localStorage.removeItem('token');
       navigate('/mentor/register');
@@ -74,14 +95,14 @@ const ProfileMentor = () => {
   };
 
   if (loading) return <div className="classic-animated-bg d-flex justify-content-center align-items-center"><div className="spinner-border text-dark"></div></div>;
-  if (error) return <div className="classic-animated-bg p-5 text-center text-danger">{error}</div>;
+  if (error) return <div className="classic-animated-bg p-5 text-center text-danger">Error: {error}</div>;
 
   return (
     <div className="classic-animated-bg">
       <div className="row justify-content-center position-relative z-1">
         <div className="col-lg-11 col-xl-10">
             
-            {/* 1. Glass Header */}
+            {/* Header */}
             <div className="glass-panel p-4 mb-4 d-flex align-items-center flex-wrap gap-4">
                 <div 
                     className="rounded-circle shadow d-flex align-items-center justify-content-center text-white"
@@ -114,7 +135,7 @@ const ProfileMentor = () => {
                 )}
             </div>
 
-            {/* 2. Glass Body Content */}
+            {/* Body */}
             <div className="glass-panel p-5">
                 {isEditing ? (
                     <div className="row g-4">
@@ -163,7 +184,7 @@ const ProfileMentor = () => {
                             <div className="row g-4">
                                 <div className="col-sm-6">
                                     <small className="text-uppercase text-muted d-block fw-bold" style={{fontSize: '0.7rem'}}>Email Address</small>
-                                    <span className="fs-5">{mentor?.email}</span>
+                                    <span className="fs-5 text-break">{mentor?.email}</span>
                                 </div>
                                 <div className="col-sm-6">
                                     <small className="text-uppercase text-muted d-block fw-bold" style={{fontSize: '0.7rem'}}>Phone Number</small>
