@@ -1,0 +1,195 @@
+/* src/styles/MenteeLogin.css */
+
+/* --- Base Container & Animated Background --- */
+.mentee-login-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: linear-gradient(-45deg, #8A2BE2, #4B0082, #9400D3, #8A2BE2);
+    background-size: 400% 400%;
+    animation: moveGradient 15s ease infinite;
+    padding: 1.5rem;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+@keyframes moveGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+/* --- Background Shapes --- */
+.background-shapes {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    pointer-events: none;
+}
+
+.shape {
+    position: absolute;
+    bottom: -150px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: floatUp 20s infinite linear;
+}
+
+.shape1 { width: 80px; height: 80px; left: 10%; animation-duration: 25s; }
+.shape2 { width: 100px; height: 100px; left: 25%; animation-duration: 20s; animation-delay: 5s; }
+.shape3 { width: 50px; height: 50px; left: 50%; animation-duration: 30s; }
+.shape4 { width: 120px; height: 120px; left: 70%; animation-duration: 18s; animation-delay: 8s; }
+.shape5 { width: 60px; height: 60px; left: 85%; animation-duration: 22s; animation-delay: 3s; }
+
+@keyframes floatUp {
+    to { transform: translateY(-120vh); opacity: 0; }
+}
+
+/* --- Form Card --- */
+.mentee-login-form {
+    background: #ffffff;
+    border-radius: 20px;
+    padding: 3rem;
+    width: 100%;
+    max-width: 500px; /* Slightly wider for registration fields */
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.2);
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease-in-out;
+}
+
+.mentee-login-form h2 {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    color: #333;
+    position: relative;
+    padding-bottom: 10px;
+}
+
+.mentee-login-form h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 50px;
+    height: 4px;
+    background: linear-gradient(90deg, #8A2BE2, #9400D3);
+    border-radius: 2px;
+}
+
+/* --- Input Groups --- */
+.input-group {
+    position: relative;
+    margin-bottom: 1.2rem;
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    left: 15px;
+    transform: translateY(-50%);
+    color: #8A2BE2;
+    z-index: 2;
+    font-size: 1.1rem;
+}
+
+.mentee-login-form input,
+.mentee-login-form select {
+    width: 100%;
+    padding: 14px 15px 14px 45px; /* Space for icon */
+    background: #f8f9fa;
+    border: 1px solid #e0e0e0;
+    border-radius: 10px;
+    color: #333;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    outline: none;
+    box-sizing: border-box; /* Ensures padding doesn't affect width */
+}
+
+.mentee-login-form input:focus,
+.mentee-login-form select:focus {
+    background: #fff;
+    border-color: #8A2BE2;
+    box-shadow: 0 0 0 4px rgba(138, 43, 226, 0.1);
+}
+
+/* Fix for Select placeholder color */
+.mentee-login-form select:invalid {
+    color: #777;
+}
+
+/* --- Button --- */
+.btn-primary {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(45deg, #9400D3, #8A2BE2);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 10px;
+    box-shadow: 0 4px 15px rgba(148, 0, 211, 0.3);
+}
+
+.btn-primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(148, 0, 211, 0.4);
+}
+
+/* --- Links --- */
+.signup-link {
+    text-align: center;
+    margin-top: 1.5rem;
+}
+
+.signup-link p {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.link-text {
+    color: #8A2BE2;
+    font-weight: 700;
+    cursor: pointer;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.link-text:hover {
+    color: #4B0082;
+    text-decoration: underline;
+}
+
+.error-message {
+    background: #fff0f0;
+    color: #dc3545;
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 1.5rem;
+    border: 1px solid #ffc9c9;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+/* --- Responsive --- */
+@media (max-width: 500px) {
+    .mentee-login-form {
+        padding: 2rem 1.5rem;
+    }
+    
+    .mentee-login-form h2 {
+        font-size: 1.8rem;
+    }
+}

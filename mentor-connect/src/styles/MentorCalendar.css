@@ -1,0 +1,82 @@
+.mentor-calendar-page {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding: 20px;
+  background-color: #f9f9f9;
+  height: 100vh;
+}
+
+.mentor-details {
+  flex: 0 0 30%;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.mentor-profile-picture {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  margin-bottom: 15px;
+}
+
+.mentor-details h3 {
+  font-size: 1.6rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+.mentor-details p {
+  font-size: 1rem;
+  color: #666;
+  margin: 5px 0;
+}
+
+.mentor-details a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.mentor-details a:hover {
+  text-decoration: underline;
+}
+
+.back-button {
+  margin-top: 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.back-button:hover {
+  background-color: #0056b3;
+}
+
+.mentor-calendar-container {
+  flex: 0 0 65%;
+  background-color: white;
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.mentor-calendar-container h3 {
+  font-size: 1.6rem;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.calendly-iframe {
+  width: 100%;
+  height: 600px;
+  border-radius: 10px;
+  border: none;
+}

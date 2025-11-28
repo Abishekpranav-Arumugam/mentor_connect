@@ -1,0 +1,97 @@
+/* ChoicePage.css */
+.choice-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Center content vertically */
+    padding: 2rem;
+    min-height: 100vh;
+    background: linear-gradient(45deg, #8A2BE2, #4B0082, #9400D3, #8A2BE2);
+    background-size: 400% 400%;
+    animation: moveGradient 15s ease infinite;
+    color: #ffffff; /* Change text color to white for better contrast */
+}
+
+@keyframes moveGradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+.choice-container h1 {
+    font-size: 3rem; /* Slightly larger font size */
+    font-weight: 700;
+    margin-bottom: 3rem;
+    text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.choice-images {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    max-width: 800px;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.choice-image {
+    background: #fff;
+    border: none; /* Remove border */
+    border-radius: 12px; /* Slightly more rounded corners */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2); /* Deeper shadow for a lifting effect */
+    cursor: pointer;
+    overflow: hidden;
+    text-align: center;
+    width: 100%;
+    max-width: 350px;
+    height: 400px;
+    position: relative;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    animation: float 6s ease-in-out infinite;
+    transition: transform 140ms ease, box-shadow 140ms ease;
+    will-change: transform, box-shadow, transform-origin;
+
+}
+
+@keyframes float {
+    0% { transform: translateY(0px); }
+    50% { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+.choice-image img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.choice-image p {
+    padding: 1rem;
+    font-size: 1.2rem;
+    color: #333;
+    margin: 0;
+    background: #fff;
+    border-top: 1px solid #ddd;
+    width: 100%;
+}
+
+.choice-image.mentor,
+.choice-image.mentee {
+    background-size: cover;
+    background-position: center;
+}
+
+.choice-image.mentor {
+    background-image: url('D:\innovation\mentor-connect\mentor-connect\mentor-connect\images\mentorpic.jpg'); /* Adjust path accordingly */
+}
+
+.choice-image.mentee {
+    background-image: url('D:\innovation\mentor-connect\mentor-connect\mentor-connect\images\menteepic.jpg');
+    animation-delay: 3s; /* Delay the animation for the second card */
+}
+
+.choice-image:hover {
+    animation-play-state: paused; /* Pause the floating animation on hover */
+ }

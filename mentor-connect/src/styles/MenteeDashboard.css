@@ -1,0 +1,149 @@
+.dashboard-container {
+  padding: 20px;
+}
+
+.mentor-navbar {
+  background-color: #007bff; /* Navbar background color */
+  padding: 10px;
+}
+
+.mentor-navbar ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-between; /* Space between the left items and the logout button */
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+/* Left aligned navigation links */
+.mentor-navbar ul li.menu-item {
+  display: inline-block;
+}
+
+/* Right aligned logout button */
+.mentor-navbar ul li.logout-btn {
+  margin-left: auto; /* Push logout button to the far right */
+}
+
+/* Styling for links */
+.mentor-navbar ul li a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 10px;
+}
+
+.mentor-navbar ul li a:hover {
+  color: #ffc107;
+}
+
+/* Styling for the Logout button */
+.mentor-navbar ul li button {
+  background-color: #ff4757;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 5px;
+}
+
+.mentor-navbar ul li button:hover {
+  background-color: #e84118;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+/* --- CLASSIC ANIMATED BACKGROUND --- */
+.classic-animated-bg {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    position: relative;
+    min-height: 85vh; /* Occupy remaining height */
+    overflow: hidden;
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+/* Floating Orbs Animation */
+.classic-animated-bg::before,
+.classic-animated-bg::after {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    border-radius: 50%;
+    z-index: 0;
+    opacity: 0.6;
+    filter: blur(80px);
+    animation: floatOrb 15s infinite ease-in-out alternate;
+}
+
+.classic-animated-bg::before {
+    background: #e0c3fc; /* Soft Purple */
+    top: -100px;
+    left: -100px;
+}
+
+.classic-animated-bg::after {
+    background: #8ec5fc; /* Soft Blue */
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -5s;
+}
+
+@keyframes floatOrb {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(50px, 50px) scale(1.1); }
+}
+
+/* --- GLASSMORPHISM CARD --- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.75);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.07);
+    border-radius: 16px;
+    position: relative;
+    z-index: 1; /* Sit above the background blobs */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.12);
+}
+
+/* --- TYPOGRAPHY & ELEMENTS --- */
+.classic-title {
+    font-family: 'Georgia', serif; /* Classic font */
+    color: #2c3e50;
+    font-weight: 700;
+}
+
+.classic-btn {
+    background: linear-gradient(45deg, #2c3e50, #34495e);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    transition: all 0.3s;
+}
+
+.classic-btn:hover {
+    background: linear-gradient(45deg, #34495e, #2c3e50);
+    box-shadow: 0 5px 15px rgba(44, 62, 80, 0.3);
+    color: #fff;
+}
+
+.classic-input {
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+}

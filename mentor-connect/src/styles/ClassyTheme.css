@@ -1,0 +1,125 @@
+/* src/styles/ClassyTheme.css */
+
+/* --- 1. THE MOVING BACKGROUND --- */
+.classic-animated-bg {
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    position: relative;
+    min-height: 100vh; /* Full screen height */
+    width: 100%;
+    padding: 2rem;
+    overflow-x: hidden;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Floating Orbs Animation */
+.classic-animated-bg::before,
+.classic-animated-bg::after {
+    content: '';
+    position: absolute;
+    width: 500px;
+    height: 500px;
+    border-radius: 50%;
+    z-index: 0;
+    opacity: 0.6;
+    filter: blur(90px);
+    animation: floatOrb 20s infinite ease-in-out alternate;
+}
+
+.classic-animated-bg::before {
+    background: rgba(138, 43, 226, 0.1); /* Soft Purple */
+    top: -100px;
+    left: -100px;
+}
+
+.classic-animated-bg::after {
+    background: rgba(65, 105, 225, 0.1); /* Soft Blue */
+    bottom: -100px;
+    right: -100px;
+    animation-delay: -5s;
+}
+
+@keyframes floatOrb {
+    0% { transform: translate(0, 0) scale(1); }
+    100% { transform: translate(60px, 60px) scale(1.1); }
+}
+
+/* --- 2. THE GLASS PANEL --- */
+.glass-panel {
+    background: rgba(255, 255, 255, 0.65);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.8);
+    box-shadow: 0 8px 32px 0 rgba(31, 38, 135, 0.05);
+    border-radius: 16px;
+    position: relative;
+    z-index: 1;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.glass-panel:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 40px 0 rgba(31, 38, 135, 0.1);
+    background: rgba(255, 255, 255, 0.8);
+}
+
+/* --- 3. TYPOGRAPHY & ELEMENTS --- */
+.classic-title {
+    font-weight: 700;
+    color: #2c3e50;
+    letter-spacing: -0.5px;
+    position: relative;
+    z-index: 1;
+}
+
+.classic-text-muted {
+    color: #6c757d;
+    font-size: 0.95rem;
+    position: relative;
+    z-index: 1;
+}
+
+/* Buttons */
+.classic-btn {
+    background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+    color: white;
+    border: none;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.classic-btn:hover {
+    background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+    box-shadow: 0 5px 15px rgba(44, 62, 80, 0.2);
+    color: #fff;
+    transform: translateY(-1px);
+}
+
+.classic-btn-outline {
+    background: transparent;
+    border: 2px solid #2c3e50;
+    color: #2c3e50;
+    padding: 8px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.classic-btn-outline:hover {
+    background: #2c3e50;
+    color: white;
+}
+
+/* Inputs */
+.classic-input {
+    background: rgba(255, 255, 255, 0.5);
+    border: 1px solid #ced4da;
+    border-radius: 8px;
+    padding: 10px 15px;
+}
+.classic-input:focus {
+    background: #fff;
+    box-shadow: 0 0 0 3px rgba(44, 62, 80, 0.1);
+    border-color: #2c3e50;
+}

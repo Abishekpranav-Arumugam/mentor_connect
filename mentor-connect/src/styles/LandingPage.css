@@ -1,0 +1,322 @@
+/* General Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Arial', sans-serif;
+  background-color: #f4f4f4;
+  line-height: 1.6;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+h1, h2, h3, h4 {
+  margin: 0.5rem 0;
+}
+
+p {
+  margin: 1rem 0;
+}
+
+/* Navbar Styles */
+.navbar {
+  position: fixed; /* This is the crucial rule to make the navbar sticky */
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #333;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1000; /* High z-index to stay on top */
+  transition: background-color 0.3s ease;
+}
+
+.logo {
+  font-size: 1.5rem;
+  color: white;
+  flex: 1;
+  text-align: left;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+}
+
+.nav-placeholder {
+  flex: 1;
+}
+
+.nav-links li a {
+  color: #ffffff;
+  font-weight: 600;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.nav-links li a:hover {
+  color: #ff9800;
+}
+
+/* Hero Section */
+.hero-section {
+  padding-top: 80px; /* IMPORTANT: This prevents the navbar from covering your content */
+  height: 100vh;
+  background-image: url('/images/landing1.jpg');
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  position: relative;
+}
+
+/* Darken the overlay for better text contrast */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5); /* Adjust opacity if needed */
+}
+
+.content {
+  z-index: 10;
+  color: white;
+  text-shadow: 3px 3px 8px rgba(0, 0, 0, 0.7); /* Enhanced text shadow */
+}
+
+.content h1 {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  font-weight: bold;
+}
+
+.content p {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+.btn {
+  background-color: #ff5722;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #e64a19;
+}
+
+/* Make the Hero CTA look like a real button and clearly visible */
+.get-started-btn {
+  display: inline-block;
+  background-color: #ff9800;
+  color: #ffffff;
+  padding: 12px 28px;
+  border-radius: 9999px;
+  font-weight: 700;
+  letter-spacing: 0.3px;
+  border: 2px solid #ff9800;
+  text-decoration: none;
+  cursor: pointer;
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.25);
+  transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.05s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.get-started-btn:hover {
+  background-color: #e68900;
+  border-color: #e68900;
+  transform: translateY(-1px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
+}
+
+.get-started-btn:focus-visible {
+  outline: 3px solid #ffffff;
+  outline-offset: 2px;
+}
+
+.get-started-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Features Section */
+.features-section {
+  padding: 4rem 2rem;
+  background-color: #fff;
+  text-align: center;
+}
+
+.features-section h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+}
+
+.features {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.feature-card {
+  background: #fafafa;
+  border: 1px solid #ddd;
+  padding: 1.5rem;
+  border-radius: 8px;
+  width: 30%;
+  min-width: 250px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s;
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+}
+
+/* Ratings Section */
+.ratings-section {
+  padding: 4rem 2rem;
+  background-color: #f4f4f4;
+  text-align: center;
+}
+
+.ratings {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.rating-card {
+  background: #fff;
+  border: 1px solid #ddd;
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 300px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative; /* Added for background image positioning */
+  padding-top: 6rem; /* Space for the image */
+}
+
+/* Background image for User A */
+.user-a::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  background-image: url('D:\innovation\mentor-connect\mentor-connect\mentor-connect\images\stud1.jpg'); /* Replace with actual image path */
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%; /* Circular image */
+  border: 2px solid #ddd; /* Optional border */
+}
+
+/* Background image for User B */
+.user-b::before {
+  content: "";
+  position: absolute;
+  top: -50px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 100px;
+  background-image: url('D:\innovation\mentor-connect\mentor-connect\mentor-connect\images\stud2.jpg'); /* Replace with actual image path */
+  background-size: cover;
+  background-position: center;
+  border-radius: 50%; /* Circular image */
+  border: 2px solid #ddd; /* Optional border */
+}
+
+.rating-card p {
+  font-style: italic;
+  margin-top: 3rem; /* Adjusted for spacing after image */
+}
+
+/* Contact Section */
+.contact-section {
+  padding: 4rem 2rem;
+  background-color: #333;
+  color: white;
+  text-align: center;
+}
+
+.contact-section h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.contact-section p {
+  font-size: 1.2rem;
+}
+
+/* Footer */
+.footer {
+  padding: 1.5rem;
+  background-color: #333;
+  text-align: center;
+  color: #fff;
+}
+
+/* Social icons in footer */
+.footer .social-icons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-bottom: 0.5rem;
+}
+
+.footer .social-icons a {
+  color: #ffffff;
+  opacity: 0.9;
+  display: inline-flex;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  transition: background 0.2s ease, transform 0.1s ease, color 0.2s ease, opacity 0.2s ease;
+}
+
+.footer .social-icons a:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateY(-1px);
+  opacity: 1;
+}
+
+.footer .social-icons svg {
+  width: 22px;
+  height: 22px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .features {
+    flex-direction: column;
+  }
+
+  .feature-card {
+    width: 100%;
+  }
+}
