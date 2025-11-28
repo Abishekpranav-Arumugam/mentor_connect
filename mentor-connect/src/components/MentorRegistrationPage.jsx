@@ -1,8 +1,9 @@
 // src/components/MentorRegistrationPage.jsx
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom'; // Added Link import
 import '../styles/MentorRegistration.css';
 import { FaUser, FaEnvelope, FaLock, FaPhone, FaLinkedin, FaBriefcase, FaFileUpload, FaCalendarAlt } from 'react-icons/fa';
+
 const MentorRegistrationPage = () => {
     const [step, setStep] = useState(1);
     const [formData, setFormData] = useState({
@@ -34,14 +35,30 @@ const MentorRegistrationPage = () => {
         const { name, files: fileList } = e.target;
         if (fileList && fileList[0]) {
             setFiles(prev => ({ ...prev, [name]: fileList[0] }));
+            setErrorMessage(''); // Clear error when file is selected
         }
     };
 
     const nextStep = () => {
-        if (step === 1 && formData.password !== formData.confirmPassword) {
-            setErrorMessage("Passwords do not match");
-            return;
+        // Validation for Step 1
+        if (step === 1) {
+            if (formData.password !== formData.confirmPassword) {
+                setErrorMessage("Passwords do not match");
+                return;
+            }
+            if (!formData.name || !formData.email || !formData.password) {
+                setErrorMessage("Please fill in all fields");
+                return;
+            }
         }
+        // Validation for Step 2
+        if (step === 2) {
+            if (!formData.fullName || !formData.phoneNumber || !formData.areaInterested || !formData.experience) {
+                setErrorMessage("Please fill in all fields");
+                return;
+            }
+        }
+        
         setStep(step + 1);
         setErrorMessage('');
     };
@@ -50,19 +67,35 @@ const MentorRegistrationPage = () => {
         setStep(step - 1);
         setErrorMessage('');
     };
-    const API_URL = process.env.REACT_APP_API_URL;
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         
+        // --- MANUAL VALIDATION FIX ---
+        // We removed 'required' from the HTML inputs, so we check here
+        if (!files.idCard) {
+            setErrorMessage("Please upload your ID Card.");
+            return;
+        }
+        if (!files.resume) {
+            setErrorMessage("Please upload your Resume.");
+            return;
+        }
+        // -----------------------------
+
         const formDataToSend = new FormData();
         Object.entries(formData).forEach(([key, value]) => {
             formDataToSend.append(key, value);
         });
 
-        if (files.idCard) formDataToSend.append('idCard', files.idCard);
-        if (files.resume) formDataToSend.append('resume', files.resume);
+        formDataToSend.append('idCard', files.idCard);
+        formDataToSend.append('resume', files.resume);
 
         try {
+            // Ensure this URL matches your Vercel/Render setup
+            // Use the environment variable if available, otherwise fallback
+            const API_URL = process.env.REACT_APP_API_URL || 'http://localhost:5000';
+            
             const response = await fetch(`${API_URL}/api/mentor/register`, {
                 method: 'POST',
                 body: formDataToSend,
@@ -70,8 +103,9 @@ const MentorRegistrationPage = () => {
 
             const result = await response.json();
             if (response.ok) {
-                localStorage.setItem('mentorData', JSON.stringify(result.data));
-                navigate('/mentor/dashboard');
+                // Navigate to login after successful registration
+                alert("Registration Successful! Please login.");
+                navigate('/mentor/login');
             } else {
                 setErrorMessage(result.message || 'Registration failed. Please try again.');
             }
@@ -206,6 +240,8 @@ const MentorRegistrationPage = () => {
                                 required
                             />
                         </div>
+                        
+                        {/* FIX: Removed 'required' attribute from file inputs to prevent focus error */}
                         <div className="file-upload">
                             <label className="file-upload-label">
                                 <FaFileUpload className="icon" /> Upload ID Card
@@ -214,11 +250,15 @@ const MentorRegistrationPage = () => {
                                     name="idCard"
                                     onChange={handleFileChange}
                                     accept=".pdf,.jpg,.jpeg,.png"
-                                    required
+                                    // required removed here
                                 />
                             </label>
-                            {files.idCard && <div className="file-name">{files.idCard.name}</div>}
+                            {files.idCard ? 
+                                <div className="file-name" style={{color: 'green'}}>{files.idCard.name}</div> :
+                                <div className="file-name text-muted">No file chosen</div>
+                            }
                         </div>
+
                         <div className="file-upload">
                             <label className="file-upload-label">
                                 <FaFileUpload className="icon" /> Upload Resume
@@ -227,10 +267,13 @@ const MentorRegistrationPage = () => {
                                     name="resume"
                                     onChange={handleFileChange}
                                     accept=".pdf,.doc,.docx"
-                                    required
+                                    // required removed here
                                 />
                             </label>
-                            {files.resume && <div className="file-name">{files.resume.name}</div>}
+                            {files.resume ? 
+                                <div className="file-name" style={{color: 'green'}}>{files.resume.name}</div> :
+                                <div className="file-name text-muted">No file chosen</div>
+                            }
                         </div>
                     </>
                 );
@@ -266,9 +309,9 @@ const MentorRegistrationPage = () => {
                 </div>
 
                 <div className={`form-step ${step === 1 ? 'active' : ''}`}>
-                    {renderStep()}
+                    {step === 1 && renderStep()}
                     <div className="form-actions">
-                        <button type="button" className="btn btn-outline" disabled={step === 1} onClick={prevStep}>
+                        <button type="button" className="btn btn-outline" disabled onClick={prevStep} style={{opacity: 0.5, cursor: 'not-allowed'}}>
                             Back
                         </button>
                         <button type="button" className="btn btn-primary" onClick={nextStep}>
@@ -278,7 +321,7 @@ const MentorRegistrationPage = () => {
                 </div>
 
                 <div className={`form-step ${step === 2 ? 'active' : ''}`}>
-                    {renderStep()}
+                    {step === 2 && renderStep()}
                     <div className="form-actions">
                         <button type="button" className="btn btn-outline" onClick={prevStep}>
                             Back
@@ -290,7 +333,7 @@ const MentorRegistrationPage = () => {
                 </div>
 
                 <div className={`form-step ${step === 3 ? 'active' : ''}`}>
-                    {renderStep()}
+                    {step === 3 && renderStep()}
                     <div className="form-actions">
                         <button type="button" className="btn btn-outline" onClick={prevStep}>
                             Back
@@ -302,7 +345,7 @@ const MentorRegistrationPage = () => {
                 </div>
 
                 <div className="signup-link">
-                    <p>Already have an account? <a href="/mentor/login">Sign in</a></p>
+                    <p>Already have an account? <Link to="/mentor/login">Sign in</Link></p>
                 </div>
             </form>
         </div>
