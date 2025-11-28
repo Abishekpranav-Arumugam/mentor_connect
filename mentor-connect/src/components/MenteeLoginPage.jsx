@@ -26,6 +26,7 @@ const MenteeLoginPage = () => {
     currentStatus: '',
     schoolOrCompany: '',
   });
+  
   const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
@@ -38,6 +39,8 @@ const MenteeLoginPage = () => {
     setIsRegistered(!isRegistered);
     setError(''); // Clear errors when switching
   };
+
+  // --- LOGIN FUNCTION ---
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
@@ -53,7 +56,7 @@ const MenteeLoginPage = () => {
       const data = await response.json();
 
       if (response.ok) {
-        localStorage.setItem('token', data.token); // Consistent with Mentor Dashboard
+        localStorage.setItem('token', data.token); 
         if(data.mentee) localStorage.setItem('menteeData', JSON.stringify(data.mentee));
         navigate('/mentee/dashboard');
       } else {
@@ -65,10 +68,12 @@ const MenteeLoginPage = () => {
     }
   };
 
+  // --- REGISTRATION FUNCTION (FIXED URL) ---
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch(`${API_URL}/api/mentee/login`, {
+      // FIX: Changed from /login to /register
+      const response = await fetch(`${API_URL}/api/mentee/register`, { 
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),
@@ -78,7 +83,7 @@ const MenteeLoginPage = () => {
 
       if (response.ok) {
         alert('Registration successful! Please login.');
-        setIsRegistered(true);
+        setIsRegistered(true); // Switch to login view
       } else {
         setError(data.message || 'Registration failed.');
       }
@@ -90,7 +95,6 @@ const MenteeLoginPage = () => {
 
   return (
     <div className="mentee-login-container">
-      {/* Animated Background Shapes */}
       <div className="background-shapes">
           <div className="shape shape1"></div>
           <div className="shape shape2"></div>
@@ -106,7 +110,7 @@ const MenteeLoginPage = () => {
 
         <form onSubmit={isRegistered ? handleLogin : handleRegistration}>
           
-          {/* Registration Fields */}
+          {/* Registration Only Fields */}
           {!isRegistered && (
             <>
                 <div className="input-group">
@@ -122,7 +126,7 @@ const MenteeLoginPage = () => {
             <input type="email" name="email" value={formData.email} onChange={handleChange} placeholder="Email Address" required />
           </div>
 
-          {/* More Registration Fields */}
+          {/* Registration Only Fields */}
           {!isRegistered && (
             <>
                 <div className="input-group">
