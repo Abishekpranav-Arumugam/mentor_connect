@@ -11,7 +11,17 @@ const app = express();
 
 // Middleware
 app.use(express.json());
-app.use(cors());
+
+// --- UPDATED CORS CONFIGURATION ---
+// This allows both your local computer and your live website to talk to the server
+app.use(cors({
+  origin: [
+    "http://localhost:3000",                      // Local Development
+    "https://mentor-connect-hazel.vercel.app"     // Your Live Vercel Frontend
+  ],
+  credentials: true
+}));
+
 app.use('/uploads', express.static('uploads')); // Serve uploaded files
 
 // Connect to MongoDB
@@ -24,5 +34,5 @@ app.use('/api/mentee', menteeRoutes);
 // Server setup
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 });
