@@ -84,11 +84,11 @@
 }
 
 .choice-image.mentor {
-    background-image: url('images\mentorpic.jpg'); /* Adjust path accordingly */
+    background-image: url('/images/mentorpic.jpg'); /* Adjust path accordingly */
 }
 
 .choice-image.mentee {
-    background-image: url('images\menteepic.jpg');
+    background-image: url('/images/menteepic.jpg');
     animation-delay: 3s; /* Delay the animation for the second card */
 }
 
