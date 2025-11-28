@@ -6,11 +6,11 @@ import '../styles/ClassyTheme.css'; // Import the shared CSS
 const ViewMentors = () => {
   const [mentors, setMentors] = useState([]);
   const navigate = useNavigate();
-
+  const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchMentors = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/mentor/all');
+       const response = await fetch(`${API_URL}/api/mentor/all`);
         const data = await response.json();
         setMentors(data);
       } catch (error) {

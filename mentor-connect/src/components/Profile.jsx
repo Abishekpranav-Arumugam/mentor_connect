@@ -16,12 +16,12 @@ const Profile = () => {
     currentStatus: '',
     schoolOrCompany: '',
   });
-
+  const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const token = localStorage.getItem('token');
-        const res = await fetch('http://localhost:5000/api/mentee/profile', {
+        const res = await fetch(`${API_URL}/api/mentee/profile`, {
           headers: { 'Authorization': `Bearer ${token}` },
         });
         const data = await res.json();
@@ -49,11 +49,11 @@ const Profile = () => {
     const { name, value } = e.target;
     setFormData(prev => ({ ...prev, [name]: value }));
   };
-
+  
   const handleSave = async () => {
     try {
       const token = localStorage.getItem('token');
-      const res = await fetch('http://localhost:5000/api/mentee/profile', {
+      const response = await fetch(`${API_URL}/api/mentee/profile`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',

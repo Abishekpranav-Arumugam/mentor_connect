@@ -26,7 +26,7 @@ const MenteeLoginPage = () => {
     currentStatus: '',
     schoolOrCompany: '',
   });
-
+  const API_URL = process.env.REACT_APP_API_URL;
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -38,11 +38,10 @@ const MenteeLoginPage = () => {
     setIsRegistered(!isRegistered);
     setError(''); // Clear errors when switching
   };
-
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/mentee/login', {
+      const response = await fetch(`${API_URL}/api/mentee/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
@@ -69,7 +68,7 @@ const MenteeLoginPage = () => {
   const handleRegistration = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/mentee/register', {
+      const response = await fetch(`${API_URL}/api/mentee/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(formData),

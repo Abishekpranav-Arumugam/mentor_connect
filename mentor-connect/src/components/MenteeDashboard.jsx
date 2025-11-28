@@ -17,9 +17,10 @@ const MenteeDashboard = () => {
     }
 
     // 2. Fetch Mentee Data (Similar to Mentor Dashboard logic)
+    const API_URL = process.env.REACT_APP_API_URL;
     const fetchMenteeData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/mentee/profile', {
+        const response = await fetch(`${API_URL}/api/mentee/profile`, {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },
         });

@@ -8,21 +8,21 @@ const ProfileMentor = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
-  
+  const API_URL = process.env.REACT_APP_API_URL;
   const [formData, setFormData] = useState({
     fullName: '', email: '', faculty: '', experience: '',
     areaInterested: '', phoneNumber: '', linkedin: '', calendlyUrl: '',
   });
 
   const navigate = useNavigate();
-
+  
   useEffect(() => {
     const fetchMentorData = async () => {
       const token = localStorage.getItem('token');
       if (!token) { navigate('/mentor/login'); return; }
 
       try {
-        const response = await axios.get('http://localhost:5000/api/mentor/profile', {
+        const response = await fetch(`${API_URL}/api/mentor/profile`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -52,7 +52,7 @@ const ProfileMentor = () => {
   const handleSave = async () => {
     try {
       const payload = { ...formData };
-      const response = await axios.put('http://localhost:5000/api/mentor/profile', payload, {
+      const response = await axios.put(`${API_URL}/api/mentor/profile`, payload, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       if (response.status === 200) {
@@ -65,7 +65,7 @@ const ProfileMentor = () => {
   const handleDelete = async () => {
     if(!window.confirm("Delete account? This is permanent.")) return;
     try {
-      await axios.delete('http://localhost:5000/api/mentor/profile', {
+      await axios.delete(`${API_URL}/api/mentor/profile`, {
         headers: { Authorization: `Bearer ${localStorage.getItem('token')}` },
       });
       localStorage.removeItem('token');

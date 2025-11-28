@@ -50,7 +50,7 @@ const MentorRegistrationPage = () => {
         setStep(step - 1);
         setErrorMessage('');
     };
-
+    const API_URL = process.env.REACT_APP_API_URL;
     const handleSubmit = async (e) => {
         e.preventDefault();
         
@@ -63,7 +63,7 @@ const MentorRegistrationPage = () => {
         if (files.resume) formDataToSend.append('resume', files.resume);
 
         try {
-            const response = await fetch('http://localhost:5000/api/mentor/register', {
+            const response = await fetch(`${API_URL}/api/mentor/register`, {
                 method: 'POST',
                 body: formDataToSend,
             });

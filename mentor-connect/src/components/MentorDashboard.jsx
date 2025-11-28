@@ -7,7 +7,7 @@ import '../styles/MentorDashboard.css';
 const MentorDashboard = () => {
   const [mentorData, setMentorData] = useState(null);
   const navigate = useNavigate();
-
+const API_URL = process.env.REACT_APP_API_URL;
   useEffect(() => {
     // 1. Retrieve the token using the SAME KEY as the Login page
     const token = localStorage.getItem('token');
@@ -20,7 +20,7 @@ const MentorDashboard = () => {
 
     const fetchMentorData = async () => {
       try {
-        const response = await fetch('http://localhost:5000/api/mentor/profile', {
+        const response = await fetch(`${API_URL}/api/mentor/profile`, {
           method: 'GET',
           headers: { Authorization: `Bearer ${token}` },
         });
